@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Calendar, Clock, Video } from "lucide-react";
 import CancelMeetingButton from "./cancel-meeting";
+import { Suspense } from "react";
 
 export default function MeetingList({ meetings, type }) {
     if (meetings.length === 0) {
@@ -54,7 +55,9 @@ export default function MeetingList({ meetings, type }) {
                     </CardContent>
                     {type === "upcoming" && (
                         <CardFooter className="flex justify-between">
-                            <CancelMeetingButton meetingId={meeting.id} />
+                            <Suspense>
+                                <CancelMeetingButton meetingId={meeting.id} />
+                            </Suspense>
                         </CardFooter>
                     )}
                 </Card>

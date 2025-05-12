@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getUserByUsername } from "@/actions/users";
 import EventCard from "@/components/event-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Suspense } from "react";
 
 export async function generateMetadata({ params }) {
     const user = await getUserByUsername(params.username);
@@ -44,12 +45,14 @@ export default async function UserProfilePage({ params }) {
             ) : (
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {user.events.map((event) => (
-                        <EventCard
-                            key={event.id}
-                            event={event}
-                            username={params.username}
-                            isPublic
-                        />
+                        <Suspense>
+                            <EventCard
+                                key={event.id}
+                                event={event}
+                                username={params.username}
+                                isPublic
+                            />
+                        </Suspense>
                     ))}
                 </div>
             )}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
     Drawer,
@@ -38,11 +38,13 @@ export default function CreateEventDrawer() {
                 <DrawerHeader>
                     <DrawerTitle>Create New Event</DrawerTitle>
                 </DrawerHeader>
-                <EventForm
-                    onSubmitForm={() => {
-                        handleClose();
-                    }}
-                />
+                <Suspense>
+                    <EventForm
+                        onSubmitForm={() => {
+                            handleClose();
+                        }}
+                    />
+                </Suspense>
                 <DrawerFooter className="px-6">
                     <DrawerClose asChild>
                         <Button variant="outline" onClick={handleClose}>
